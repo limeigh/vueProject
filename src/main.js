@@ -12,6 +12,8 @@ import 'mint-ui/lib/style.min.css'
 // 导入mui中的css
 import '../static/mui/css/mui.css'
 import '../static/mui/css/icons-extra.css'
+// 导入自己的css
+import '../static/css/site.css'
 
 // 在vue中加载vueRouter
 Vue.use(vueRouter)
@@ -26,16 +28,15 @@ Vue.filter('toLowerCase-g',function(name){
 	return name.toLowerCase()
 })
 
-Vue.filter('replaceStr-g',function(name,p){
-	return name.replace(p,'')
-})
-
 // 定义路由规则
 var router=new vueRouter({
+	linkActiveClass:'mui-active',//通过切换路由更改所对应的样式名称从而切换样式
 	routes:[
-	{name:'Login',path:'/Account/Login/:id/:name',component:Login},
-	{name:'Register',path:'/Account/Register',component:Register},
-	{name:'vueResource',path:'/Account/vueResource',component:vueResource}
+	{name:'root',path:'/',redirect:'/Home'},//url重定向表示页面一打开就进入Home页
+	{name:'home',path:'/Home',component:Home},
+	{name:'er',path:'/er',component:er},
+	{name:'san',path:'/san',component:san},
+	{name:'si',path:'/si',component:si}
 	]
 })
 // 根组件
@@ -44,10 +45,12 @@ import App from './App.vue'
 // 父组件注册和使用子组件以及父组件向子组件传入数据
 // import App from './components/parent.vue'
 
-// 导入Login和Register组件
-import Login from './components/Login.vue'
-import Register from './components/Register.vue'
-import vueResource from './components/vueResource.vue'
+// 导入components中的组件
+import Home from './components/Home/Home.vue'
+import er from './components/er/er.vue'
+import san from './components/san/san.vue'
+import si from './components/si/si.vue'
+
 
 
 // 实例化一个vue
