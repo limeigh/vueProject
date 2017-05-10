@@ -17,7 +17,7 @@ module.exports={
 			},
 			{
 				test:/\.(jpg|png|ttf)$/,
-				loader:'url-loader?limit=4000000'
+				loader:'url-loader?limit=40000'
 			}
 		]
 	},
