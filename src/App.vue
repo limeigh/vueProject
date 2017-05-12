@@ -2,6 +2,10 @@
 	<div class="App">
 		<!-- 整个系统的头部 -->
 		<mt-header fixed title="基于Vue和Webpack的CMS系统"></mt-header>
+		<!-- 公用的返回按钮 -->
+		<div class="back" v-if="isShow">
+			<a @click="goback">返回</a>
+		</div>
 
 		<!-- 路由占位,将来所有组件都是替换这个位置来实现页面跳转
 		这也是一个单页系统的实现 -->
@@ -33,12 +37,31 @@
 	export default{
 		data(){
 			return {
-
+				'isShow':false
+			}
+		},
+		methods:{
+			goback(){
+				this.$router.go(-1); //返回上一个页面
+			}
+		},
+		watch:{
+			'$route':function(newVal,oldVal){
+				newVal.path.toLowerCase() === '/home' ? this.isShow=false:this.isShow=true
 			}
 		}
 	}
 </script>
 
-<style>
-
+<style scoped>
+	.back{
+		position: fixed;
+		top: 10px;
+		left: 10px;
+		z-index: 10;
+	}
+	.back a{
+		color: #fff;
+		font-size: 16px;
+	}
 </style>

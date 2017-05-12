@@ -29,7 +29,7 @@ Vue.use(mintUI)
 Vue.filter('fmtdate',function(input,datefmtstring){
 	//日期格式化的过滤器我们使用moment.js的日期格式化插件
 	// 因为传入的datefmtstring的格式种类很多，自己写比较复杂
-	return moment().format(datefmtstring)
+	return moment(input).format(datefmtstring)
 
 })
 
@@ -42,7 +42,8 @@ var router=new vueRouter({
 	{name:'er',path:'/er',component:er},
 	{name:'san',path:'/san',component:san},
 	{name:'si',path:'/si',component:si},
-	{name:'newsList',path:'/newsList',component:newsList}
+	{name:'newsList',path:'/newsList',component:newsList},
+	{name:'newsInfo',path:'/newsList/newsInfo/:id',component:newsInfo}
 	]
 })
 // 根组件
@@ -57,6 +58,7 @@ import er from './components/er/er.vue'
 import san from './components/san/san.vue'
 import si from './components/si/si.vue'
 import newsList from './components/newsList/newsList.vue'
+import newsInfo from './components/newsList/newsInfo.vue'
 
 
 

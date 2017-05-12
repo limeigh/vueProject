@@ -51,6 +51,6 @@
 		color: #0094ff;
 		justify-content: space-between;
 		position: relative;
-		top: 6px;
+		top: 4px;
 	}
 </style>
