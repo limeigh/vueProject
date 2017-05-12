@@ -1,11 +1,7 @@
 <template>
 	<div class="tmpl">
-		<!-- 利用mint-ui中的swipe组件实现轮播图 -->
-		<mt-swipe :auto="4000">
-		  <mt-swipe-item v-for="(item,index) in lists" :key="index">
-		  	<a :href="item.url"><img :src="item.img" alt=""></a>
-		  </mt-swipe-item>
-		</mt-swipe>
+		<!-- 引用公用组件中的轮播图组件 -->
+		<CarouselFigure :imgLists="lists"></CarouselFigure>
 
 		<!-- 利用mui中的9宫格实现系统的导航按钮-->
 		<div class="mui-content">
@@ -52,11 +48,17 @@
 </template>
 
 <script>
+//导入公用的轮播图组件
+import CarouselFigure from '../common/CarouselFigure.vue'
+
 export default{
 	data(){
 		return {
 			lists:[]
 		}
+	},
+	components:{
+		CarouselFigure
 	},
 	created(){
 		this.getImage()
@@ -75,13 +77,6 @@ export default{
 </script>
 
 <style scoped>  /*这里的scoped属性是保证里面的样式只对当前组件生效*/
-	img{
-		width: 100%;
-		height: 100%;
-	}
-	.mint-swipe{
-		height: 155px;
-	}
 	.icon-home{
 		width: 40px;
 		height: 40px;
