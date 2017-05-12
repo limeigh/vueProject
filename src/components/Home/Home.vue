@@ -7,10 +7,10 @@
 		<div class="mui-content">
 	        <ul class="mui-table-view mui-grid-view mui-grid-9">
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	            	<a href="#">
+	            	<router-link to="/newsList">
 	                    <span class="mui-icon icon-home"></span>
-	                    <div class="mui-media-body">home</div>
-	                </a>
+	                    <div class="mui-media-body">news</div>
+	                </router-link>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 	            	<a href="#">
@@ -68,6 +68,7 @@ export default{
 			var url='http://localhost:1666/api/getlunbo'
 			this.$http.get(url).then(res=>{
 				this.lists=res.body.message
+				// console.log(this.$route)
 			},res=>{
 				alert('发生异常')
 			})
@@ -77,6 +78,9 @@ export default{
 </script>
 
 <style scoped>  /*这里的scoped属性是保证里面的样式只对当前组件生效*/
+	.tmpl{
+		margin-bottom: 0px;
+	}
 	.icon-home{
 		width: 40px;
 		height: 40px;

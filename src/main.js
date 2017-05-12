@@ -7,6 +7,8 @@ import vueRouter from 'vue-router'
 import vueResources from 'vue-resource'
 // 导入mint-ui(vue的UI组件)
 import mintUI from 'mint-ui'
+// 导入日期格式化插件moment
+import moment from 'moment'
 // 导入mint-ui的css
 import 'mint-ui/lib/style.min.css'
 // 导入mui中的css
@@ -24,8 +26,11 @@ Vue.use(mintUI)
 
 
 // 在vue中注册全局过滤器
-Vue.filter('toLowerCase-g',function(name){
-	return name.toLowerCase()
+Vue.filter('fmtdate',function(input,datefmtstring){
+	//日期格式化的过滤器我们使用moment.js的日期格式化插件
+	// 因为传入的datefmtstring的格式种类很多，自己写比较复杂
+	return moment().format(datefmtstring)
+
 })
 
 // 定义路由规则
@@ -36,7 +41,8 @@ var router=new vueRouter({
 	{name:'home',path:'/Home',component:Home},
 	{name:'er',path:'/er',component:er},
 	{name:'san',path:'/san',component:san},
-	{name:'si',path:'/si',component:si}
+	{name:'si',path:'/si',component:si},
+	{name:'newsList',path:'/newsList',component:newsList}
 	]
 })
 // 根组件
@@ -50,6 +56,7 @@ import Home from './components/Home/Home.vue'
 import er from './components/er/er.vue'
 import san from './components/san/san.vue'
 import si from './components/si/si.vue'
+import newsList from './components/newsList/newsList.vue'
 
 
 

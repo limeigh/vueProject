@@ -1,3 +1,7 @@
 .App .tmpl{
 	margin-top: 42px;
+	margin-bottom: 50px;
+}
+body{
+	background-color: #fff;
 }
