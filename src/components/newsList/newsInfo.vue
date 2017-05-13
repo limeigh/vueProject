@@ -9,10 +9,12 @@
 			</p>
 		</div>
 		<div class="content" v-html="newsInfo.content"></div>
+		<!-- 评论组件的使用 -->
+		<comment :artid="this.$route.params.id"></comment>
 	</div>
 </template>
-
 <script>
+	import comment from '../common/comment.vue'
 	export default{
 		data(){
 			return {
@@ -32,6 +34,9 @@
 					alert('发生异常')
 				})
 			}
+		},
+		components:{
+			comment
 		}
 	}
 </script>
