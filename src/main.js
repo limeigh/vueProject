@@ -44,7 +44,8 @@ var router=new vueRouter({
 	{name:'si',path:'/si',component:si},
 	{name:'newsList',path:'/newsList',component:newsList},
 	{name:'newsInfo',path:'/newsList/newsInfo/:id',component:newsInfo},
-	{name:'photoList',path:'/photo/photoList',component:photoList}
+	{name:'photoList',path:'/photo/photoList',component:photoList},
+	{name:'photoInfo',path:'/photo/photoInfo/:id',component:photoInfo}
 	]
 })
 // 根组件
@@ -61,6 +62,7 @@ import si from './components/si/si.vue'
 import newsList from './components/newsList/newsList.vue'
 import newsInfo from './components/newsList/newsInfo.vue'
 import photoList from './components/photo/photoList.vue'
+import photoInfo from './components/photo/photoInfo.vue'
 
 
 

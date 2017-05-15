@@ -11,7 +11,9 @@
 		<div class="imgList">
 			<ul>
 			  <li v-for="item in imglist">
-			    <img v-lazy="item.img_url">
+			  	<router-link v-bind='{to:"/photo/photoInfo/"+item.id}'>
+			    	<img v-lazy="item.img_url">
+			  	</router-link>
 			    <div class="imgDescribe">
 			    	<span class="title" v-text="item.title"></span>
 			    	<div class="zhaiyao" v-text="item.zhaiyao"></div>
