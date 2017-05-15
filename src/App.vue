@@ -37,13 +37,16 @@
 	export default{
 		data(){
 			return {
-				'isShow':false
+				isShow:false
 			}
 		},
 		methods:{
 			goback(){
 				this.$router.go(-1); //返回上一个页面
 			}
+		},
+		created(){
+				this.isShow=true
 		},
 		watch:{
 			'$route':function(newVal,oldVal){

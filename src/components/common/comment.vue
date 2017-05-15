@@ -46,10 +46,11 @@
 					this.$toast('评论内容必须填写')
 					return
 				}
-				var url='http://webhm.top:8899/api/postcomment/'+this.artid
+				var url='http://localhost:1888/api/postcomment/'+this.artid
 				this.$http.post(url,{content:contentText},{emulateJSON:true}).then(res=>{
 					this.$toast('评论提交成功!')
-					this.getcomment(this.pageindex)
+					this.comments=[]
+					this.getcomment(1)
 					this.$refs.postcontent.value = ''
 				},res=>{
 					console.log('发生异常')
@@ -57,7 +58,7 @@
 			},
 			// 获取评论
 			getcomment(pageindex){
-				var url='http://webhm.top:8899/api/getcomments/'+this.artid+'?pageindex='+pageindex
+				var url='http://localhost:1888/api/getcomments/'+this.artid+'?pageindex='+pageindex
 				this.$http.get(url).then(res=>{
 					// this.comments=res.body.message
 					this.comments=this.comments.concat(res.body.message)
