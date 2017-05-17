@@ -1,6 +1,6 @@
 <template>
 	<div class="tmpl">
-	<!-- title -->
+		<!-- title -->
 		<div class="title">
 			<h2>{{photoInfo.title}}</h2>
 			<p>
@@ -8,30 +8,35 @@
 				{{photoInfo.click}}次浏览
 			</p>
 		</div>
-	<!-- 图片 -->
+		<!-- 图片 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-            	<a href="#">
-           	 		<img src="https://pic.hiweixiu.com/images/uploadImg/banner/201705/20170508171925_490.png" width="109" height="109">
-            	</a>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" v-for="(item, index) in thumimages">
+           	 	<img class="preview-img" :src="item.src" height="109" width="109" @click="$preview.open(index, thumimages)">
             </li>
         </ul> 
-    <!-- 图片描述 -->
-    <div class="content" v-html="photoInfo.content">
-   
-    </div>
+	    <!-- 图片描述 -->
+	    <div class="content" v-html="photoInfo.content">
+	   
+	    </div>
+	    <!-- 图片评论 -->
+	    <photoComment :artid="this.$route.params.id"></photoComment>
 	</div>
 </template>
 
 <script>
+	import photoComment from '../common/comment.vue'
 	export default{
 		data(){
 			return {
-				photoInfo:{}
+				photoInfo:{
+
+				},
+				thumimages:[]
 			}
 		},
 		created(){
 			this.getphotoInfo()
+			this.getthumimages()
 		},
 		methods:{
 			getphotoInfo(){
@@ -42,7 +47,24 @@
 				},res=>{
 					console.log('发生异常')
 				})
+			},
+			getthumimages(){
+				var id=this.$route.params.id
+				var url='http://localhost:1888/api/getthumimages/'+id
+				this.$http.get(url).then(res=>{
+					res.body.message.forEach(item=>{
+						item.src='http://ofv795nmp.bkt.clouddn.com/'+item.src
+						item.w=600
+						item.h=400
+					})
+					this.thumimages=res.body.message
+				},res=>{
+					console.log('发生异常')
+				})
 			}
+		},
+		components:{
+			photoComment
 		}
 	}
 </script>

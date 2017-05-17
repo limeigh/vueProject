@@ -36,6 +36,7 @@
 			}
 		},
 		created(){
+			console.log(this.pageindex)
 			this.getcomment(this.pageindex)
 		},
 		methods:{
@@ -50,7 +51,8 @@
 				this.$http.post(url,{content:contentText},{emulateJSON:true}).then(res=>{
 					this.$toast('评论提交成功!')
 					this.comments=[]
-					this.getcomment(1)
+					this.pageindex=1
+					this.getcomment(this.pageindex)
 					this.$refs.postcontent.value = ''
 				},res=>{
 					console.log('发生异常')

@@ -16,8 +16,12 @@ module.exports={
 				loader:'style-loader!css-loader!autoprefixer-loader'
 			},
 			{
-				test:/\.(jpg|png|ttf)$/,
+				test:/\.(jpg|png|ttf|svg|gif)$/,
 				loader:'url-loader?limit=40000'
+			},
+			{
+				test: /vue-preview.src.*?js$/,
+				loader:'babel-loader?presets[]=es2015'
 			}
 		]
 	},

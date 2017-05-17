@@ -16,6 +16,8 @@ import '../static/mui/css/mui.css'
 import '../static/mui/css/icons-extra.css'
 // 导入自己的css
 import '../static/css/site.css'
+// 导入图片预览插件
+import VuePreview from 'vue-preview'
 
 // 在vue中加载vueRouter
 Vue.use(vueRouter)
@@ -23,6 +25,8 @@ Vue.use(vueRouter)
 Vue.use(vueResources)
 // 在vue中加载vueRouter
 Vue.use(mintUI) 
+// 在vue中使用VuePreview
+Vue.use(VuePreview)
 
 
 // 在vue中注册全局过滤器
