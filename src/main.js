@@ -49,7 +49,9 @@ var router=new vueRouter({
 	{name:'newsList',path:'/newsList',component:newsList},
 	{name:'newsInfo',path:'/newsList/newsInfo/:id',component:newsInfo},
 	{name:'photoList',path:'/photo/photoList',component:photoList},
-	{name:'photoInfo',path:'/photo/photoInfo/:id',component:photoInfo}
+	{name:'photoInfo',path:'/photo/photoInfo/:id',component:photoInfo},
+	{name:'goodslist',path:'/goods/goodslist',component:goodslist},
+	{name:'goodsInfo',path:'/goods/goodsInfo/:id',component:goodsInfo}
 	]
 })
 // 根组件
@@ -67,6 +69,8 @@ import newsList from './components/newsList/newsList.vue'
 import newsInfo from './components/newsList/newsInfo.vue'
 import photoList from './components/photo/photoList.vue'
 import photoInfo from './components/photo/photoInfo.vue'
+import goodslist from './components/goods/goodslist.vue'
+import goodsInfo from './components/goods/goodsInfo.vue'
 
 
 

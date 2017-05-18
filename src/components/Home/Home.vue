@@ -19,10 +19,10 @@
 	                </router-link>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-	            	<a href="#">
+	            	<router-link to="/goods/goodslist">
 	                    <span class="mui-icon icon-home"></span>
-	                    <div class="mui-media-body">Home</div>
-	                </a>
+	                    <div class="mui-media-body">Goods</div>
+	                </router-link>
 	            </li>
 	            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 	            	<a href="#">

@@ -27,6 +27,6 @@
 		height: 100%;
 	}
 	.mint-swipe{
-		height: 155px;
+		height: 250px;
 	}
 </style>
