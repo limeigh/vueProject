@@ -20,8 +20,9 @@ module.exports={
 				loader:'url-loader?limit=40000'
 			},
 			{
-				test: /vue-preview.src.*?js$/,
-				loader:'babel-loader?presets[]=es2015'
+				test: /\.js$/,
+				exclude:/node_modules/,
+				loader:'babel-loader'
 			}
 		]
 	},
