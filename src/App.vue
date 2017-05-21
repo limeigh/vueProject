@@ -22,7 +22,7 @@
 				<span class="mui-tab-label">通知</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/san">
-				<span class="mui-icon mui-icon-camera"></span>
+				<span class="mui-icon mui-icon-camera"><span id="goshop" class="mui-badge">0</span></span>
 				<span class="mui-tab-label">购物</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/si">
@@ -34,6 +34,14 @@
 </template>
 
 <script>
+// 导入公用commonJs
+import {vueObj} from './commonJs/common.js'
+vueObj.$on('goshop',function(data){
+	var goshop = document.querySelector('#goshop')
+	var count=goshop.innerText - 0
+	count += data
+	goshop.innerText = count
+})
 	export default{
 		data(){
 			return {

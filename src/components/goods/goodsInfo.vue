@@ -13,7 +13,19 @@
 				<number v-on:count="getCount"></number>
 			</div>
 			<mt-button type="primary" size="small">立即购买</mt-button>	
-			<mt-button type="danger" size="small">加入购物车</mt-button>
+			<mt-button type="danger" size="small" @click="goshop">加入购物车</mt-button>
+		</div>
+		<div class="params">
+			<h6>商品参数</h6>
+			<ul>
+				<li>商品货号:{{goodsInfodata.goods_no}}</li>
+				<li>库存情况:{{goodsInfodata.stock_quantity}}</li>
+				<li>上架时间:{{goodsInfodata.add_time | fmtdate('YYYY-MM-DD')}}</li>
+			</ul>
+		</div>
+		<div class="footer">
+			<mt-button plain type="primary" size="large" @click="desc">图文介绍</mt-button>	
+			<mt-button plain type="danger" size="large" style="margin-top: 20px" @click="comment">商品评论</mt-button>	
 		</div>
 	</div>
 </template>
@@ -24,10 +36,12 @@
 import CarouselFigure from '../common/CarouselFigure.vue'
 // 2.0计数器组件
 import number from '../common/number.vue'
-
+// 3.0公用commonJs
+import {vueObj} from '../../commonJs/common.js'
 	export default{
 		data(){
 			return {
+				goodsCount:1,
 				goodsImglists:[],
 				goodsInfodata:{}
 			}
@@ -63,7 +77,20 @@ import number from '../common/number.vue'
 				})
 			},
 			getCount(count){
-				console.log('count='+count)
+				this.goodsCount=count
+			},
+			comment(){
+				var id=this.$route.params.id
+				// Vue 路由跳转
+				this.$router.push({name:'goodsComment',params:{id:id}})
+			},
+			desc(){
+				var id=this.$route.params.id
+				// Vue 路由跳转
+				this.$router.push({name:'goodsdesc',params:{id:id}})
+			},
+			goshop(){
+				vueObj.$emit('goshop',this.goodsCount)
 			}
 		}
 	}
@@ -71,7 +98,7 @@ import number from '../common/number.vue'
 
 
 <style scoped>
-	.CarouselFigure,.sell{
+	.CarouselFigure,.sell,.params{
 		margin:5px;
 		padding:5px;
 		border:1px solid rgba(92,92,92,0.3);
@@ -94,5 +121,12 @@ import number from '../common/number.vue'
 	}
 	.sell .sellprice,.sell .count{
 		padding: 10px;
+	}
+	.params h6{
+		padding: 5px;
+		border-bottom: 1px solid rgba(92,92,92,0.3)
+	}
+	.params ul li{
+		list-style: none;
 	}
 </style>
