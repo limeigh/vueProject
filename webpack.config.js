@@ -21,7 +21,7 @@ module.exports={
 			},
 			{
 				test: /\.js$/,
-				exclude:/node_modules/,
+				exclude:/vue-lazyload/,
 				loader:'babel-loader'
 			}
 		]
