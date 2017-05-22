@@ -11,6 +11,14 @@
 				购买数量:
 				<!-- 计数器的组件 -->
 				<number v-on:count="getCount"></number>
+				<!-- 加入购物车小球动画 -->
+				<transition
+				  v-on:before-enter="beforeEnter"
+				  v-on:enter="enter"
+				  v-on:after-enter="afterEnter"
+				>
+				  <div v-if="isShow" class="ball"></div>
+				</transition>
 			</div>
 			<mt-button type="primary" size="small">立即购买</mt-button>	
 			<mt-button type="danger" size="small" @click="goshop">加入购物车</mt-button>
@@ -38,10 +46,13 @@ import CarouselFigure from '../common/CarouselFigure.vue'
 import number from '../common/number.vue'
 // 3.0公用commonJs
 import {vueObj} from '../../commonJs/common.js'
+// 4.0localStorageHelper.js
+import {setItem} from '../../commonJs/localStorageHelper.js'
 	export default{
 		data(){
 			return {
 				goodsCount:1,
+				isShow:false,
 				goodsImglists:[],
 				goodsInfodata:{}
 			}
@@ -90,7 +101,23 @@ import {vueObj} from '../../commonJs/common.js'
 				this.$router.push({name:'goodsdesc',params:{id:id}})
 			},
 			goshop(){
+				// 发送数量通知
 				vueObj.$emit('goshop',this.goodsCount)
+				// 出现动画效果
+				this.isShow = !this.isShow
+				// 将商品数据存储到localStorage
+				setItem({goodsId:this.$route.params.id,goodsCount:this.goodsCount})
+			},
+			beforeEnter(el){
+				el.style.transform='translate3d(0,0,0)'
+			},
+			enter(el,done){
+				el.offsetHeight //实时获取元素高度是为了显示动画效果不然没有动画效果
+				el.style.transform='translate3d(100px,250px,0)'
+				done()
+			},
+			afterEnter(el){
+				this.isShow = !this.isShow
 			}
 		}
 	}
@@ -128,5 +155,19 @@ import {vueObj} from '../../commonJs/common.js'
 	}
 	.params ul li{
 		list-style: none;
+	}
+	.count{
+		position: relative;
+	}
+	.ball{
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background-color: red;
+		position: absolute;
+		top: 12px;
+		left: 124px;
+		z-index: 50;
+		transition: all .5s cubic-bezier(.35,-0.44,.83,.67)
 	}
 </style>
