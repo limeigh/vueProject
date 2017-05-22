@@ -43,7 +43,7 @@ var router=new vueRouter({
 	routes:[
 	{name:'root',path:'/',redirect:'/Home'},//url重定向表示页面一打开就进入Home页
 	{name:'home',path:'/Home',component:Home},
-	{name:'er',path:'/er',component:er},
+	{name:'shopcar',path:'/shopcar',component:shopcar},
 	{name:'san',path:'/san',component:san},
 	{name:'si',path:'/si',component:si},
 	{name:'newsList',path:'/newsList',component:newsList},
@@ -64,7 +64,7 @@ import App from './App.vue'
 
 // 导入components中的组件
 import Home from './components/Home/Home.vue'
-import er from './components/er/er.vue'
+import shopcar from './components/shopcar/shopcar.vue'
 import san from './components/san/san.vue'
 import si from './components/si/si.vue'
 import newsList from './components/newsList/newsList.vue'

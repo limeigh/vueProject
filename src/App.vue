@@ -17,13 +17,13 @@
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</router-link>
-			<router-link class="mui-tab-item" to="/er">
-				<span class="mui-icon mui-icon-weixin"><span class="mui-badge">9</span></span>
-				<span class="mui-tab-label">通知</span>
+			<router-link class="mui-tab-item" to="/shopcar">
+				<span class="mui-icon mui-icon-camera"><span id="goshop" class="mui-badge">0</span></span>
+				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/san">
-				<span class="mui-icon mui-icon-camera"><span id="goshop" class="mui-badge">0</span></span>
-				<span class="mui-tab-label">购物</span>
+				<span class="mui-icon mui-icon-weixin"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">通知</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/si">
 				<span class="mui-icon mui-icon-contact"></span>

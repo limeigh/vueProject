@@ -1,6 +1,6 @@
 <template>
 	<div class="tmpl">
-		si
+		工程建设中,敬请期待!!
 	</div>
 </template>
 
