@@ -13,6 +13,9 @@
 				count:1
 			}
 		},
+		created(){
+			this.count=this.numberCount>1?this.numberCount:1
+		},
 		methods:{
 			add(){
 				this.count++
@@ -30,7 +33,8 @@
 				let key="count"
 				this.$emit(key,this.count)
 			}
-		}
+		},
+		props:['numberCount']
 	}
 </script>
 

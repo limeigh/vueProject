@@ -1,6 +1,6 @@
 <template>
 	<div class="tmpl">
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="left">
 				<mt-switch v-model="value" class="switch"></mt-switch>
 			</div>
@@ -13,21 +13,36 @@
 				<number v-on:count="getCount" class="number"></number>
 				<a href="#">删除</a>
 			</div>
+		</div> -->
+		<div class="null" v-if="isShow">
+			购物车空空如也!!
 		</div>
-		<div class="row">
+		<div class="row" v-for="(item,index) in shopcarLists" v-if="!isShow">
 			<div class="left">
-				<mt-switch v-model="value" class="switch"></mt-switch>
+				<mt-switch v-model="values[index]" class="switch"></mt-switch>
 			</div>
 			<div class="center">
-				<img width="75" height="75" src="" alt="">
+				<img width="75" height="75" :src="item.thumb_path" alt="">
 			</div>
 			<div class="right">
-				<h4>标题</h4>
-				<span>$2333</span>
-				<number v-on:count="getCount" class="number"></number>
+				<h4>{{item.title}}</h4>
+				<span>${{item.sell_price}}</span>
+				<number v-on:count="getCount" class="number" :numberCount="item.count"></number>
 				<a href="#">删除</a>
 			</div>
 		</div>
+
+		<!-- 总计 -->
+		<div class="total" v-if="!isShow">
+			<div class="left">
+				<h5>总计(不含运费)</h5>
+				<span>已经勾选商品0件,总价$0元</span>
+			</div>
+			<div class="right">
+				<mt-button type="danger" size="normal">去结算</mt-button>
+			</div>
+		</div>
+		{{values}}
 	</div>
 </template>
 
@@ -37,7 +52,9 @@ import {getItem} from '../../commonJs/localStorageHelper.js'
 export default{
 	data(){
 		return {
-			value:true
+			isShow:false,
+			values:[],
+			shopcarLists:[]
 		}
 	},
 	created(){
@@ -52,8 +69,13 @@ export default{
 		},
 		getlocalStorage(){
 			var goodsArr=getItem()
+			if(!goodsArr.length){
+				this.isShow = true
+				return
+			}
 			var goodsObj={}
 			goodsArr.forEach(item=>{
+				this.values.push(false) //初始化switch默认值
 				if(goodsObj[item.goodsId]){
 					goodsObj[item.goodsId] += item.goodsCount
 				}else{
@@ -65,8 +87,18 @@ export default{
 				IdArr.push(key)
 			}
 			var ids = IdArr.join(',')
-			console.log(goodsObj)
-			console.log(ids)
+			// console.log(goodsObj)
+			// console.log(ids)
+			var url='http://localhost:1888/api/goods/getshopcarlist/'+ids
+			this.$http.get(url).then(res=>{
+				res.body.message.forEach(item=>{
+					item.thumb_path='http://ofv795nmp.bkt.clouddn.com/'+item.thumb_path
+					item.count=goodsObj[item.id]
+				})
+				this.shopcarLists=res.body.message
+			},res=>{
+				console.log('发生异常')
+			})
 		}
 	}	
 }
@@ -105,5 +137,31 @@ export default{
 	.row .right span{
 		color: red;
 		font-size: 16px;
+	}
+
+	/*总计*/
+	.total{
+		padding: 5px;
+		background-color: rgba(1,1,1,0.1);
+		margin-top:10px;
+		overflow: hidden;
+		position: relative;
+	}
+	.total .left{
+		float: left;
+		width: 70%;
+	}
+	.total .right{
+		float: right;
+		width: 28%;
+		position: absolute;
+		top:50%;
+		margin-top: -20px;
+		right: 0;
+	}
+	.total h5{
+		color: black;
+		font-weight: bold;
+		margin-bottom: 10px;
 	}
 </style>
