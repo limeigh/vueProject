@@ -36,7 +36,7 @@
 		<div class="total" v-if="!isShow">
 			<div class="left">
 				<h5>总计(不含运费)</h5>
-				<span>已经勾选商品0件,总价$0元</span>
+				<span>已经勾选商品{{selectgoods}}件,总价${{totalPrice}}元</span>
 			</div>
 			<div class="right">
 				<mt-button type="danger" size="normal">去结算</mt-button>
@@ -52,6 +52,7 @@ import {getItem} from '../../commonJs/localStorageHelper.js'
 export default{
 	data(){
 		return {
+			totalPrice:0,
 			isShow:false,
 			values:[],
 			shopcarLists:[]
@@ -99,6 +100,22 @@ export default{
 			},res=>{
 				console.log('发生异常')
 			})
+		},
+		getTotalPrice(){
+			var _this=this
+			_this.totalPrice = 0
+			_this.values.forEach(function(item,index){
+				if(item){
+					_this.totalPrice += _this.shopcarLists[index]['count'] * _this.shopcarLists[index]['sell_price']
+				}
+			})
+		}
+	},
+	computed:{
+		selectgoods:function(){
+			var valfilterArr=this.values.filter(item=>item==true)
+			this.getTotalPrice()
+			return valfilterArr.length
 		}
 	}	
 }
