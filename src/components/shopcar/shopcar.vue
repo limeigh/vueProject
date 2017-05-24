@@ -27,7 +27,7 @@
 			<div class="right">
 				<h4>{{item.title}}</h4>
 				<span>${{item.sell_price}}</span>
-				<number v-on:count="getCount" class="number" :numberCount="item.count" :numberId="item.id"></number>
+				<numbers v-on:count="getCount" class="number" :numberCount="item.count" :numberId="item.id" :is="currentView"></numbers>
 				<a @click="del(item.id)">删除</a>
 			</div>
 		</div>
@@ -49,6 +49,7 @@
 <script>
 var switching = true
 import number from '../common/number.vue'
+import number1 from '../common/number.vue' //number1是为了后面进行删除操作的时候重载组件
 import {vueObj} from '../../commonJs/common.js'
 import {getItem,setItem} from '../../commonJs/localStorageHelper.js'
 export default{
@@ -57,14 +58,16 @@ export default{
 			totalPrice:0,
 			isShow:false,
 			values:[],
-			shopcarLists:[]
+			shopcarLists:[],
+			currentView:'number'
 		}
 	},
 	created(){
 		this.getlocalStorage()
 	},
 	components:{
-		number
+		number,
+		number1
 	},
 	methods:{
 		goshop(data){
@@ -159,14 +162,6 @@ export default{
 			// 		this.shopcarLists.splice(i,1)
 			// 	}
 			// })
-			var newArr1=this.shopcarLists
-			newArr1.forEach((item,i)=>{
-				if(item.id == id){
-					this.goshop(-item.count)
-					this.values.splice(i,1)
-					newArr1.splice(i,1)
-				}
-			})
 			var newArr2=getItem()
 			for(var i=0;i<newArr2.length;i++){
 				if(newArr2[i].goodsId == id){
@@ -175,6 +170,15 @@ export default{
 				}
 			}
 			localStorage.setItem('goods',JSON.stringify(newArr2))
+			var newArr1=this.shopcarLists
+			newArr1.forEach((item,i)=>{
+				if(item.id == id){
+					this.goshop(-item.count)
+					this.values.splice(i,1)
+					this.currentView='number1'
+					newArr1.splice(i,1)
+				}
+			})
 		}
 	},
 	computed:{
