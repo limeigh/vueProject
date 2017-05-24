@@ -1,40 +1,45 @@
 <template>
 	<div class="numbertmpl">
 		<span class="left" @click="substrict">-</span>
-		<span class="middle">{{count}}</span>
+		<span class="middle">{{resObj.count}}</span>
 		<span class="right" @click="add">+</span>
 	</div>
 </template>
 
 <script>
+	const ADD = 'add'
+	const SUBSTRICT = 'substrict'
 	export default{
 		data(){
 			return {
-				count:1
+				resObj:{type:ADD,goodsId:0,count:0}
 			}
 		},
 		created(){
-			this.count=this.numberCount>1?this.numberCount:1
+			this.resObj.count=this.numberCount>1?this.numberCount:1
+			this.resObj.goodsId=this.numberId>0?this.numberId:0
 		},
 		methods:{
 			add(){
-				this.count++
-				this.notiflycount()
+				this.resObj.count++
+				this.resObj.type=ADD
+				this.notiflycount(this.resObj)
 			},
 			substrict(){
-				if(this.count<=1){
-					this.count=1
+				if(this.resObj.count<=1){
+					this.resObj.count=1
 					return
 				}
-				this.count--
-				this.notiflycount()
+				this.resObj.count--
+				this.resObj.type=SUBSTRICT
+				this.notiflycount(this.resObj)
 			},
-			notiflycount(){
+			notiflycount(resobj){
 				let key="count"
-				this.$emit(key,this.count)
+				this.$emit(key,resobj)
 			}
 		},
-		props:['numberCount']
+		props:['numberCount','numberId']
 	}
 </script>
 

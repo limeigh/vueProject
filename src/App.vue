@@ -36,12 +36,20 @@
 <script>
 // 导入公用commonJs
 import {vueObj} from './commonJs/common.js'
+
+const SHOPCARCOUNT = 'shopcarCount'
 vueObj.$on('goshop',function(data){
 	var goshop = document.querySelector('#goshop')
 	var count=goshop.innerText - 0
 	count += data
+	count >=1 ? count = count :count = 1
 	goshop.innerText = count
+	localStorage.setItem(SHOPCARCOUNT,count)
 })
+
+window.onload=function(){
+	document.querySelector('#goshop').innerText = localStorage.getItem(SHOPCARCOUNT) || 0
+}
 	export default{
 		data(){
 			return {

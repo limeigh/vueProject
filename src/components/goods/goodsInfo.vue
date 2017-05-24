@@ -87,8 +87,8 @@ import {setItem} from '../../commonJs/localStorageHelper.js'
 					console.log('发生异常')
 				})
 			},
-			getCount(count){
-				this.goodsCount=count
+			getCount(resobj){
+				this.goodsCount=resobj.count
 			},
 			comment(){
 				var id=this.$route.params.id

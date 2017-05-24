@@ -27,8 +27,8 @@
 			<div class="right">
 				<h4>{{item.title}}</h4>
 				<span>${{item.sell_price}}</span>
-				<number v-on:count="getCount" class="number" :numberCount="item.count"></number>
-				<a href="#">删除</a>
+				<number v-on:count="getCount" class="number" :numberCount="item.count" :numberId="item.id"></number>
+				<a @click="del(item.id)">删除</a>
 			</div>
 		</div>
 
@@ -47,8 +47,10 @@
 </template>
 
 <script>
+var switching = true
 import number from '../common/number.vue'
-import {getItem} from '../../commonJs/localStorageHelper.js'
+import {vueObj} from '../../commonJs/common.js'
+import {getItem,setItem} from '../../commonJs/localStorageHelper.js'
 export default{
 	data(){
 		return {
@@ -65,8 +67,47 @@ export default{
 		number
 	},
 	methods:{
-		getCount(count){
-			console.log(count)
+		goshop(data){
+			vueObj.$emit('goshop',data)
+		},
+		getCount(resobj){
+			if(resobj.type === 'add'){
+				this.add(resobj)
+				this.updateShopcarLists(1,resobj.goodsId)
+				this.goshop(1)
+				return
+			}
+			this.substrict(resobj)
+			this.updateShopcarLists(-1,resobj.goodsId)
+			this.goshop(-1)
+		},
+		updateShopcarLists(count,goodsId){
+			for(var i=0;i<this.shopcarLists.length;i++){
+				if(this.shopcarLists[i].id == goodsId){
+					this.shopcarLists[i]['count'] = this.shopcarLists[i]['count'] + count
+				}
+			}
+		},
+		add(resobj){
+			setItem({goodsId:resobj.goodsId,goodsCount:1})
+			switching = false
+			// this.getlocalStorage()
+		},
+		substrict(resobj){
+			let subArr = getItem()
+			for(var i=0;i<subArr.length;i++){
+				if(subArr[i].goodsId == resobj.goodsId){
+					if(subArr[i].goodsCount == 1){
+						subArr.splice(i,1)
+					}else{
+						subArr[i].goodsCount = subArr[i].goodsCount-1
+					}
+					break	
+				}
+			}
+			localStorage.setItem('goods',JSON.stringify(subArr))
+			switching = false
+			// this.getlocalStorage()
 		},
 		getlocalStorage(){
 			var goodsArr=getItem()
@@ -76,7 +117,6 @@ export default{
 			}
 			var goodsObj={}
 			goodsArr.forEach(item=>{
-				this.values.push(false) //初始化switch默认值
 				if(goodsObj[item.goodsId]){
 					goodsObj[item.goodsId] += item.goodsCount
 				}else{
@@ -95,6 +135,9 @@ export default{
 				res.body.message.forEach(item=>{
 					item.thumb_path='http://ofv795nmp.bkt.clouddn.com/'+item.thumb_path
 					item.count=goodsObj[item.id]
+					if(switching){
+						this.values.push(false) //初始化switch默认值
+					}
 				})
 				this.shopcarLists=res.body.message
 			},res=>{
@@ -109,6 +152,29 @@ export default{
 					_this.totalPrice += _this.shopcarLists[index]['count'] * _this.shopcarLists[index]['sell_price']
 				}
 			})
+		},
+		del(id){
+			// this.shopcarLists.forEach((item,i)=>{
+			// 	if(item.id == id){
+			// 		this.shopcarLists.splice(i,1)
+			// 	}
+			// })
+			var newArr1=this.shopcarLists
+			newArr1.forEach((item,i)=>{
+				if(item.id == id){
+					this.goshop(-item.count)
+					this.values.splice(i,1)
+					newArr1.splice(i,1)
+				}
+			})
+			var newArr2=getItem()
+			for(var i=0;i<newArr2.length;i++){
+				if(newArr2[i].goodsId == id){
+					newArr2.splice(i,1)
+					i--
+				}
+			}
+			localStorage.setItem('goods',JSON.stringify(newArr2))
 		}
 	},
 	computed:{
