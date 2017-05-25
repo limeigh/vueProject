@@ -42,7 +42,7 @@
 				<mt-button type="danger" size="normal">去结算</mt-button>
 			</div>
 		</div>
-		{{values}}
+<!-- 		{{values}} -->
 	</div>
 </template>
 
