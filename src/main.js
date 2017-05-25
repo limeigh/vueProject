@@ -45,7 +45,7 @@ var router=new vueRouter({
 	{name:'home',path:'/Home',component:Home},
 	{name:'shopcar',path:'/shopcar',component:shopcar},
 	{name:'san',path:'/san',component:san},
-	{name:'si',path:'/si',component:si},
+	{name:'member',path:'/member',component:member},
 	{name:'newsList',path:'/newsList',component:newsList},
 	{name:'newsInfo',path:'/newsList/newsInfo/:id',component:newsInfo},
 	{name:'photoList',path:'/photo/photoList',component:photoList},
@@ -53,7 +53,9 @@ var router=new vueRouter({
 	{name:'goodslist',path:'/goods/goodslist',component:goodslist},
 	{name:'goodsInfo',path:'/goods/goodsInfo/:id',component:goodsInfo},
 	{name:'goodsComment',path:'/goods/goodsComment/:id',component:goodsComment},
-	{name:'goodsdesc',path:'/goods/goodsdesc/:id',component:goodsdesc}
+	{name:'goodsdesc',path:'/goods/goodsdesc/:id',component:goodsdesc},
+	{name:'login',path:'/login',component:login},
+	{name:'setorder',path:'/order/setorder',component:setorder}
 	]
 })
 // 根组件
@@ -66,7 +68,7 @@ import App from './App.vue'
 import Home from './components/Home/Home.vue'
 import shopcar from './components/shopcar/shopcar.vue'
 import san from './components/san/san.vue'
-import si from './components/si/si.vue'
+import member from './components/member/member.vue'
 import newsList from './components/newsList/newsList.vue'
 import newsInfo from './components/newsList/newsInfo.vue'
 import photoList from './components/photo/photoList.vue'
@@ -75,6 +77,8 @@ import goodslist from './components/goods/goodslist.vue'
 import goodsInfo from './components/goods/goodsInfo.vue'
 import goodsComment from './components/goods/goodsComment.vue'
 import goodsdesc from './components/goods/goodsdesc.vue'
+import login from './components/login/login.vue'
+import setorder from './components/order/setorder.vue';
 
 
 

@@ -39,7 +39,7 @@
 				<span>已经勾选商品{{selectgoods}}件,总价${{totalPrice}}元</span>
 			</div>
 			<div class="right">
-				<mt-button type="danger" size="normal">去结算</mt-button>
+				<mt-button type="danger" size="normal" @click="tosettemt">去结算</mt-button>
 			</div>
 		</div>
 <!-- 		{{values}} -->
@@ -48,10 +48,12 @@
 
 <script>
 var switching = true
+import { Toast } from 'mint-ui';
 import number from '../common/number.vue'
 import number1 from '../common/number.vue' //number1是为了后面进行删除操作的时候重载组件
 import {vueObj} from '../../commonJs/common.js'
 import {getItem,setItem} from '../../commonJs/localStorageHelper.js'
+import {getUserId} from '../../commonJs/loginHelper.js'
 export default{
 	data(){
 		return {
@@ -179,7 +181,26 @@ export default{
 					newArr1.splice(i,1)
 				}
 			})
-		}
+		},
+		// 结算
+		tosettemt(){
+			//1.0 判断是否有选择至少一个商品
+			let newarr= this.values.filter(c=>c ==true);
+			if(newarr.length==0){
+				Toast('请至少选择一个商品');
+				return;
+			}
+
+			//2.0 判断是否有登录
+			let userid = getUserId();
+			if(!userid){
+				//应该跳转到登录组件
+				this.$router.push({name:'login'});
+			}else{
+				//跳转到订单页面
+				this.$router.push({name:'setorder'});
+			}
+		},
 	},
 	computed:{
 		selectgoods:function(){
